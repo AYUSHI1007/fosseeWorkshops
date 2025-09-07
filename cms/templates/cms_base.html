@@ -2,19 +2,112 @@
 <html lang="en">
 {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <title>{{ page.title|title }}</title>
-    <link rel="stylesheet" href="{% static 'cms/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'cms/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}">
 
-    <script src="{% static 'cms/js/jquery-3.4.1.slim.min.js' %}"></script>
-    <script src="{% static 'cms/js/popper.min.js' %}"></script>
-    {{ page.imports | safe }}
-    <script src="{% static 'cms/js/bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}" type="text/css"/>
+<script src="{% static 'workshop_app/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'cms/js/popper.min.js' %}"></script>
+<script src="{% static 'cms/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'workshop_app/js/toastr.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'workshop_app/css/toastr.min.css' %}">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #5b46b3; 
+        --secondary-color: #8E44AD
+        --accent-color: #3498DB; 
+        --text-dark: #2c3e50; 
+        --text-light: #ecf0f1; 
+        --bg-light: #f7f9fc;
+    }
+    
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: var(--bg-light);
+        background-image: url('https://images.unsplash.com/photo-1620580327705-fe0ac20b3554');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        color: var(--text-dark);
+    }
+    .navbar-brand {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: var(--text-light) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+    .navbar-brand:hover {
+        transform: scale(1.05);
+    }
+    .navbar-nav .nav-link {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        color: var(--text-light) !important;
+        font-size: 1rem;
+        margin-right: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .navbar-nav .nav-link:hover {
+        color: var(--accent-color) !important;
+        transform: translateY(-2px);
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        display: block;
+        background: var(--accent-color);
+        transition: width 0.4s ease;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    .dropdown-menu {
+        background-color: var(--primary-color);
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease-out;
+    }
+    .dropdown-item {
+        color: var(--text-light);
+        transition: background-color 0.3s ease;
+    }
+    .dropdown-item:hover {
+        background-color: var(--secondary-color);
+        color: #fff;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .base-content {
+        background-color: rgba(255, 255, 255, 0.95);
+        margin: 80px 20px 20px 20px;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        animation: slideInUp 0.8s ease-out forwards;
+    }
+    @keyframes slideInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 </head>
 <body>
 
-<nav class=" navbar navbar-dark navbar navbar-expand-lg bg-dark fixed-top">
+<nav class=" navbar navbar-dark navbar navbar-expand-lg bg-primary fixed-top">
     <a class="navbar-brand" href="/">FOSSEE Workshops</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,8 +125,9 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
-                                            class="material-icons" style="vertical-align: middle">{{ nav.name }}</span>
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       <span class="material-icons" style="vertical-align: middle">{{ nav.icon }}</span>
+                                        {{ nav.name }}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         {% for subnav in nav.subnavs %}
@@ -43,7 +137,7 @@
                                 </li>
                             </ul>
                         {% else %}
-                            <a class="nav-link" href="{{ nav.link }}">{{ nav.name }}</a>
+                            <a class="nav-link" href="{{ nav.link }}"><span class="material-icons" style="vertical-align: middle">{{ nav.icon }}</span> {{ nav.name }}</a>
                         {% endif %}
                     </li>
                 {% endfor %}
