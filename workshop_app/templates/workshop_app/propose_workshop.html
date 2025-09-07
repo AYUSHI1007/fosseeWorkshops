@@ -7,6 +7,7 @@
 
 {% block extra-dependencies %}
     <link rel="stylesheet" href="{% static 'workshop_app/css/jquery-ui.css' %}" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
     <script src="{% static 'workshop_app/js/jquery-1.12.4.js' %}"></script>
     <script src="{% static 'workshop_app/js/jquery-ui.min.js' %}"></script>
 {% endblock %}
@@ -28,7 +29,6 @@
                 beforeShowDay: $.datepicker.noWeekends,
             });
 
-
             $('#disp_tnc').click(function (e) {
                 e.preventDefault()
                 if ($('#id_workshop_type').val() === '')
@@ -49,59 +49,221 @@
 
 {% block content %}
     <style type="text/css">
-        .errorlist {
-            color: red;
+        :root {
+            --primary-purple: #422e91;
+            --accent-yellow: #FFD700;
+            --dark-text: #2c3e50;
+            --light-bg: #f5f5f5;
+            --shadow-color: rgba(91, 70, 179, 0.2);
         }
 
-    .modal-open .modal{
-        overflow-y: hidden;
-    }
+        body {
+            background-color: #e6e6fa; 
+        }
+        .container{
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-text);
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            max-width: 600px;
+            margin: 50px auto;
+            animation: slideInUp 0.8s ease-out;
+        }
+        .card-header {
+            background-color:#5b46b3;
+            color: #fff;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            padding: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+       select, .datepicker {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        select:focus, .datepicker:focus {
+            border-color: var(--accent-yellow);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.4);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 2rem;
+        }
+        .form-check-input {
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid var(--primary-purple);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: absolute;
+            opacity: 0;
+        }
+        .form-check-label {
+            position: relative;
+            padding-left: 2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        .form-check-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid var(--primary-purple);
+            border-radius: 4px;
+            transition: all 0.2s ease-in-out;
+        }
+        .form-check-input:checked + .form-check-label::before {
+            background-color: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+        .form-check-label::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            width: 6px;
+            height: 12px;
+            border: solid var(--primary-purple);
+            border-width: 0 3px 3px 0;
+            transform: translateY(-60%) rotate(45deg) scale(0);
+            transition: transform 0.2s ease-in-out;
+        }
+        .form-check-input:checked + .form-check-label::after {
+            transform: translateY(-60%) rotate(45deg) scale(1);
+        }
+
+      
+        .form-check-label a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid var(--accent-yellow);
+            transition: all 0.3s ease;
+        }
+        .form-check-label a:hover {
+            color: #4b3a8c;
+            border-bottom-color: #f7d636;
+        }
+
+        
+        .btn-submit {
+            background-color: #5b46b3;
+            color: #fff;
+            border: 2px solid var(--primary-purple);
+            border-radius: 5px;
+            padding: 15px 40px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: rgb(215, 215, 116);
+            color: var(--dark-text);
+            border-color: lightyellow;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        
+        .alert-info, .alert-danger {
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .alert-info { 
+            background-color: #e6f3ff;
+            color: #004085;
+            border: 1px solid #cce5ff;
+        }
+        .alert-info strong {
+            color: var(--primary-purple);
+        }
     </style>
 
-    <div class="container" align="center">
+    <div class="container" aligntext="center">
         <div class="alert alert-info">
+            <span class="material-icons" style="vertical-align: middle; margin-right: 8px;">info</span>
             Note: Before proposing the workshop, please check about the workshop in the
             <strong>Workshop Types</strong> section
         </div>
-        <br><br>
-        <div class="col-md-6 col-md-offset-6">
-            <div class="card border-primary">
-                <div class="card-header">
-                    <h3>Propose Workshop</h3>
-                </div>
-                <div class="card-body">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                Propose Workshop
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <form method="post">
-                            {% csrf_token %}
-                            <br/>
-                            {{ form.workshop_type }}
-                            <br>
-                            {{ form.date }}
-                            <br>
-                            {{ form.tnc_accepted }} I accept the
-                            <a href="#" id="disp_tnc" data-toggle="modal"
-                            data-target="#exampleModalCenter">
+                        <label for="{{ form.workshop_type.id_for_label }}">Workshop Type</label>
+                        {{ form.workshop_type }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.date.id_for_label }}">Date</label>
+                        {{ form.date }}
+                    </div>
+                    <div class="form-check text-left">
+                        {{ form.tnc_accepted }}
+                        <label class="form-check-label" for="{{ form.tnc_accepted.id_for_label }}">
+                            I accept the 
+                            <a href="#" id="disp_tnc" data-toggle="modal" data-target="#exampleModalCenter">
                                 terms and conditions
                             </a>
-                            <br>
-                            {% if form.errors %}
-                                <br>
-                                <div style="text-align: left; border: 1px solid red; padding-top: 5px">
-                                    <h5 style="text-align: center; color: red; font-weight: bolder">Errors</h5>
-                                    {{ form.errors }}
-                                </div>
-                            {% endif %}
-                            <br>
-                            <button class="btn btn-success" type="submit">Submit</button>
-                        </form>
+                        </label>
                     </div>
-                </div>
+                    {% if form.errors %}
+                        <div class="alert alert-danger mt-3" style="text-align: left; padding: 10px;">
+                            <h5 style="text-align: center; color: red; font-weight: bolder">Errors</h5>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+                    <br>
+                    <button class="btn btn-submit" type="submit">Submit</button>
+                </form>
             </div>
         </div>
         <br>
-
     </div>
-    <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -113,7 +275,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                 </div>
             </div>
         </div>
