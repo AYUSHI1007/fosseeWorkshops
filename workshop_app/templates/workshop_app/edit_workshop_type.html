@@ -1,111 +1,251 @@
 {% extends 'workshop_app/base.html' %}
-{% load static %}
 
 {% block title %}
     Add new Workshop type
 {% endblock %}
 
-{% block extra-dependencies %}
-{% endblock %}
-
-{% block extra-custom-scripts %}
-
-    <script src="{% static 'workshop_app/js/jquery.formset.js' %}"></script>
-{% endblock %}
-
 {% block content %}
-    <div class="container">
-        <h2 class="text-center m-2">View / Edit Workshop Type</h2>
-        <br>
-        <form method="post" enctype="multipart/form-data">
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Workshop Name :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.name }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.name.errors }}</div>
-                    </div>
-                </div>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Duration :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.duration }}</div>
-                    </div>
-                    <div class="row m-1 text-muted">
-                        <div class="col">{{ form.duration.help_text }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.duration.errors }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Description :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.description }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.description.errors }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Terms and Conditions :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.terms_and_conditions }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.terms_and_conditions.errors }}</div>
-                    </div>
-                </div>
-            </div>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-            <h2 class="text-center m-2">Attachments</h2>
-            {{ form_file.management_form }}
-            {{ form_file.non_form_errors }}
-            {% for form in form_file %}
-                <div class="inline {{ form_file.prefix }} my-4">
-                    <div class="row">
-                        <div class="col-11">
-                            {% for field in form %}
-                                <div class="col-6">{{ field }}</div>
-                            {% endfor %}
-                        </div>
-                    {% if form.id.value %}
-                    <div class="col-1">
-                        <a href="{% url 'workshop_app:delete_attachment_file' form.id.value %}"><button class="btn btn-md btn-danger float-right" type="button">Delete</button></a>
-                    </div>
-                    {% endif %}
-                    </div>
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 !important;
+        }
 
-                </div>
-                <hr>
-            {% endfor %}
-            <div class="row my-3">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-md btn-primary float-right m-3">Save</button>
-                </div>
+        .form-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .form-panel:hover {
+            transform: translateY(-5px);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .form-panel h2 {
+            color: #6b46c1;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .form-panel h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4c1d95;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #8b5cf6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .text-muted {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .text-danger {
+            color: #ef4444;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .mt-4 {
+            margin-top: 30px !important;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d152b7, #480527);
+            color: white;
+        }
+        .btn-link {
+            background: transparent;
+            color: #8b5cf6;
+            border: 2px solid #8b5cf6;
+        }
+
+        .btn-link:hover {
+            background: #8b5cf6;
+            color: white;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-panel {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .form-panel h2 {
+                font-size: 1.8em;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-panel {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9ca3af;
+            opacity: 0.8;
+        }
+        .form-group input.is-invalid,
+        .form-group textarea.is-invalid,
+        .form-group select.is-invalid {
+            border-color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.05);
+        }
+
+        .form-group input.is-valid,
+        .form-group textarea.is-valid,
+        .form-group select.is-valid {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+    </style>
+
+<div class="container">
+    <div class="form-panel left-panel">
+        <h2 class="text-center">NEW WORKSHOP TYPE</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Workshop Name</label>
+                {{ form.name }}
+                <div class="text-danger">{{ form.name.errors }}</div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.duration.id_for_label }}">Duration</label>
+                {{ form.duration }}
+                <div class="text-muted">{{ form.duration.help_text }}</div>
+                <div class="text-danger">{{ form.duration.errors }}</div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                <div class="text-danger">{{ form.description.errors }}</div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.terms_and_conditions.id_for_label }}">Terms and Conditions</label>
+                {{ form.terms_and_conditions }}
+                <div class="text-danger">{{ form.terms_and_conditions.errors }}</div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{% url 'workshop_app:workshop_type_list' %}" class="btn btn-link">Back to Workshop Types</a>
             </div>
         </form>
     </div>
-    <br><br><br><br>
-    <script type="text/javascript">
-        $(function () {
-            $(".inline.{{ form_file.prefix }}").formset({
-                prefix: "{{ form_file.prefix }}", // The form prefix for your django formset
-                addCssClass: "btn btn-md btn-primary bordered inline-form-add", // CSS class applied to the add link
-                deleteCssClass: "hidden", // CSS class applied to the delete link
-                addText: 'Add another attachment', // Text for the add link
-                deleteText: '',
-                formCssClass: 'inline-form' // CSS class applied to each form in a formset
-            })
-        });
-    </script>
+</div>
 {% endblock %}
