@@ -81,7 +81,6 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
   .modern-table tbody tr {
     background: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 10px;
   }
   .modern-table tbody tr td {
@@ -181,8 +180,6 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
   .nav-button.active {
     background: linear-gradient(45deg, #c54dad, #540f46);
   }
-
-  /* Slideshow indicators*/
   .slideshow-indicators {
     position: absolute;
     bottom: 20px;
@@ -217,7 +214,6 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
 {% endblock %} {% block extra-custom-scripts %} {% load static %}
 <script src="{% static 'workshop_app/js/datepicker.js' %}"></script>
 <script>
-  // Image slideshow functionality
   const backgroundImages = [
     "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     "https://t3.ftcdn.net/jpg/01/68/27/12/360_F_168271253_39awmwyJVB1BdlbYDnUEbzpBQEVWPgdJ.jpg",
