@@ -425,35 +425,28 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          {% csrf_token %} {% for workshop in workshops %} {% if not
-          workshop.status and workshop.tnc_accepted %}
-          <tr>
-            <td>
-              <a
-                href="{% url 'workshop_app:view_profile' workshop.coordinator.id %}"
-              >
-                {{ workshop.coordinator.get_full_name }}</a
-              >
-            </td>
-            <td>{{ workshop.coordinator.profile.institute }}</td>
-            <td>{{ workshop.workshop_type }}</td>
-            <td>{{ workshop.date | date }}</td>
-            <td>
-              <span class="badge badge-warning">{{ workshop.get_status }}</span>
-            </td>
-            <td>
-              <a
-                href="{% url 'workshop_app:accept_workshop' workshop.id %}"
-                class="btn btn-primary btn-sm"
-                onclick="return confirm('Once accepted you cannot reject, you have to personally contact the Coordinator if the workshop is to be cancelled. Are you sure you want to accept the workshop?')"
-              >
-                Accept
-              </a>
-            </td>
-          </tr>
-          {% endif %} {% endfor %}
-        </tbody>
+                {% csrf_token %}
+                {% for workshop in workshops %}
+                    <tbody>
+                    <tr>
+                        {% if not workshop.status and workshop.tnc_accepted %}
+                            <td>
+                                <a href="{% url 'workshop_app:view_profile' workshop.coordinator.id %}">
+                                    {{ workshop.coordinator.get_full_name }}</a>
+                            </td>
+                            <td>{{ workshop.coordinator.profile.institute }}</td>
+                            <td>{{ workshop.workshop_type }}</td>
+                            <td>{{ workshop.date | date }}</td>
+                            <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
+                            <td>
+                                <a href="{% url 'workshop_app:accept_workshop' workshop.id %}" class="btn btn-primary btn-sm"  onclick="return confirm('Once accepted you cannot reject, you have to personally contact the Coordinator if the workshop is to be cancelled. Are you sure you want to accept the workshop?')">
+                                    Accept
+                                </a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                    </tbody>
+                {% endfor %}
       </table>
     </div>
   </div>
