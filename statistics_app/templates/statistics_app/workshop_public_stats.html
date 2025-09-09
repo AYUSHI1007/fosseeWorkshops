@@ -3,91 +3,409 @@
 {% block title %} Statistics {% endblock %}
 
 {% block content %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        padding: 20px;
+        background: url(https://www.inclusiongeeks.com/wp-content/uploads/2023/02/business-workshop.jpg);
+    }
+
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .filter-panel {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 0;
+        /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+    .filter-panel:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background: transparent;
+        border: none;
+        padding: 25px 25px 0 25px;
+    }
+    .card-header .row {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .card-header .col-md-4 {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .card-header h3 {
+        color: #6b46c1;
+        font-size: 1.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        margin: 0;
+    }
+
+    .card-header h3::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #ec4899, #8b5cf6);
+        border-radius: 2px;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .card-body > div {
+        margin-bottom: 20px;
+    }
+
+    .card-body label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4c1d95;
+        font-weight: 600;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .card-body input[type="date"],
+    .card-body select {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1em;
+        background: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+        outline: none;
+        margin-top: 5px;
+    }
+
+    .card-body input:focus,
+    .card-body select:focus {
+        border-color: #8b5cf6;
+        background: white;
+        transform: translateY(-2px);
+    }
+
+    .btn {
+        padding: 12px 12px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1em;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 5px;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #d165c0, #af1e7a);
+        color: white;
+    }
+
+    .btn-success:hover {
+        background: linear-gradient(135deg, #d165c0, #af1e7a);
+        transform: translateY(-3px);
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #d165c0, #af1e7a);
+        color: white;
+    }
+
+    .btn-info:hover {
+        background: linear-gradient(135deg, #d165c0, #af1e7a);
+        transform: translateY(-3px);
+    }
+    
+    .btn-info:hover{
+        background: linear-gradient(135deg, #d165c0, #af1e7a);
+        transform: translateY(-3px);
+    }
+
+    .btn-outline-info {
+        background: transparent;
+        color: #f63bed;
+        border: 2px solid #f63bd7;
+    }
+
+    .btn-outline-info:hover {
+        background: #f63bd7;
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .table-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(244, 151, 236, 0.4);
+        transition: transform 0.3s ease;
+    }
+
+    .table-container:hover {
+        transform: translateY(-5px);
+    }
+
+    .table {
+        background: transparent;
+        margin-bottom: 0;
+    }
+
+    .table thead th {
+        background: linear-gradient(135deg, #6b46c1, #8b5cf6);
+        color: white;
+        border: none;
+        padding: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9em;
+    }
+
+    .table thead th:first-child {
+        border-radius: 12px 0 0 12px;
+    }
+
+    .table thead th:last-child {
+        border-radius: 0 12px 12px 0;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover td {
+        background: rgba(139, 92, 246, 0.1);
+        transform: scale(1.02);
+    }
+
+    .table tbody tr:nth-child(even) td {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .controls-row {
+        margin-bottom: 20px;
+    }
+    #dialog {
+        border-radius: 20px !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .filter-panel,
+    .table-container {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #fce4ec; 
+        border-color: #f8bbd0;
+        color: #ad1457;
+    }
+    .pagination .page-link {
+        color: #6b46c1;
+    }
+    .pagination .page-link:hover {
+        background-color: #fef3f7;
+        color: #8b5cf6;
+    }
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .stats-layout > .col-md-3,
+        .stats-layout > .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .filter-panel,
+        .table-container {
+            margin: 10px;
+            padding: 15px;
+        }
+        
+        .card-header,
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-header .col-md-8,
+        .card-header .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .card-header .col-md-4 {
+            justify-content: flex-start;
+            margin-top: 8px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .controls-row .col-md-3,
+        .controls-row .col-md-6 {
+            margin-bottom: 15px;
+        }
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        accent-color: #8b5cf6;
+    }
+</style>
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="row stats-layout">
         <div class="col-md-3">
             <form method="GET">
-                <div class="card">
+                <div class="filter-panel">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3><u>Filters</u></h3>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'statistics_app:public' %}" class="btn btn-outline-info">
-                                    <i class="fa fa-times"></i>&nbsp;Clear
-                                </a>
-                            </div>
+                        <h3><u>Filters</u></h3>
+                        <div style="margin-top: 8px;">
+                            <a href="{% url 'statistics_app:public' %}" class="btn btn-outline-info">
+                                <i class="fa fa-times"></i>&nbsp;Clear
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div>From date: {{form.from_date}}</div>
-                        <div>To date: {{form.to_date}}</div>
-                        <div>Workshop: {{form.workshop_type}}</div>
-                        <div>State: {{form.state}}</div>
-                        <div>{{form.sort.help_text}}: {{form.sort}}</div>
+                        <div>
+                            <label>From Date:</label>
+                            {{form.from_date}}
+                        </div>
+                        <div>
+                            <label>To Date:</label>
+                            {{form.to_date}}
+                        </div>
+                        <div>
+                            <label>Workshop:</label>
+                            {{form.workshop_type}}
+                        </div>
+                        <div>
+                            <label>State:</label>
+                            {{form.state}}
+                        </div>
+                        <div>
+                            <label>{{form.sort.help_text}}:</label>
+                            {{form.sort}}
+                        </div>
                         {% if request.user.is_authenticated %}
-                        <div>{{form.show_workshops.help_text}}: {{form.show_workshops}}</div>
+                        <div>
+                            <label>{{form.show_workshops.help_text}}:</label>
+                            {{form.show_workshops}}
+                        </div>
                         {% endif %}
                         <br>
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-eye"></i>&nbsp;View
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-info" name="download" value="download">
-                                    <i class="fa fa-download"></i>&nbsp;Download
-                                </button>
-                            </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-eye"></i>&nbsp;View
+                            </button>
+                            <button type="submit" class="btn btn-info" name="download" value="download">
+                                <i class="fa fa-download"></i>&nbsp;Download
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="col">
-            <div class="row">
-                <div class="col-md-6">
-                    {% include "statistics_app/paginator.html" %}
+            <div class="table-container">
+                <div class="row controls-row">
+                    <div class="col-md-6">
+                        {% include "statistics_app/paginator.html" %}
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info" id="state_graph">
+                            <i class="fa fa-bar-chart"></i>&nbsp;State chart
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info" id="type_graph">
+                            <i class="fa fa-bar-chart"></i>&nbsp;Workshops chart
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="state_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;State chart
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="type_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;Workshops chart
-                    </button>
-                </div>
-            </div>
-            <table class="table table-responsive-sm">
-                <thead>
-                    <tr>
-                        <th>Sr No.</th>
-                        <th>Coordinator Name</th>
-                        <th>Institute Name</th>
-                        <th>Instructor Name</th>
-                        <th>Workshop Name</th>
-                        <th>Workshop Date</th>
-                    </tr>
-                </thead>
-                {% csrf_token %}
-                {% for workshop in objects %}
-                    <tbody>
+                <div class="table-responsive-wrapper">
+                <table class="table table-responsive-sm">
+                    <thead>
                         <tr>
-                            <td>{{ forloop.counter0|add:objects.start_index}}</td>
-                            <td>{{ workshop.coordinator.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.coordinator.profile.institute | capfirst }}</td>
-                            <td>{{ workshop.instructor.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.workshop_type.name }}</td>
-                            <td>{{ workshop.date | date}}</td>
+                            <th>Sr No.</th>
+                            <th>Coordinator Name</th>
+                            <th>Institute Name</th>
+                            <th>Instructor Name</th>
+                            <th>Workshop Name</th>
+                            <th>Workshop Date</th>
                         </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-            {% include "statistics_app/paginator.html" %}
+                    </thead>
+                    {% csrf_token %}
+                    {% for workshop in objects %}
+                        <tbody>
+                            <tr>
+                                <td>{{ forloop.counter0|add:objects.start_index}}</td>
+                                <td>{{ workshop.coordinator.get_full_name | capfirst }}</td>
+                                <td>{{ workshop.coordinator.profile.institute | capfirst }}</td>
+                                <td>{{ workshop.instructor.get_full_name | capfirst }}</td>
+                                <td>{{ workshop.workshop_type.name }}</td>
+                                <td>{{ workshop.date | date}}</td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+                </div>
+                {% include "statistics_app/paginator.html" %}
+            </div>
         </div>
     </div>
 </div>
