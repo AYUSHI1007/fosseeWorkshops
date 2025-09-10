@@ -34,7 +34,6 @@
     {% endblock %}
     
     <style>
-        
         :root {
             --primary-color: #5b46b3; 
             --secondary-color: #8E44AD; 
@@ -49,7 +48,7 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             margin: 0;
-            padding-top: 72px;
+            padding-top: 72px; 
         }
 
         
@@ -57,14 +56,113 @@
             background-color: var(--primary-color) !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease-in-out;
-            min-height: 64px; 
+            min-height: 64px;
             padding-top: 0.35rem;
             padding-bottom: 0.35rem;
-            flex-wrap: wrap;
+            flex-wrap: wrap; 
             display: flex;
             align-items: center; 
         }
-        
+       
+        .navbar.navbar-expanded {
+            background-color: #ffd54f !important; 
+            min-height: 200px; 
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+        }
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .navbar-brand .brand-subtext {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            font-size: 0.75rem;
+            line-height: 1.1;
+            color: #ecf0f1;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 16px !important; 
+            border-radius: 5px;
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            color: var(--text-light) !important;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            background: var(--accent-color);
+            transition: width 0.4s ease;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-description {
+            width: 100%;
+            color: #2c3e50;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            flex: 0 0 100%;
+            background: #ffd54f; 
+            padding: 12px 16px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar.navbar-expanded .navbar-description {
+            max-height: 360px; 
+            opacity: 1;
+            padding-top: 12px;
+        }
+
+        .dropdown-menu {
+            background-color: var(--primary-color);
+            border: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-out;
+        }
+        .dropdown-item {
+            color: var(--text-light) !important;
+            transition: background-color 0.3s ease;
+        }
+        .dropdown-item:hover {
+            background-color: var(--secondary-color);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .base-content {
             background-color: #fff;
             margin: 30px auto;
@@ -97,6 +195,37 @@
             text-align: center;
         }
 
+        /* Responsive */
+        @media (max-width: 992px) {
+            body { padding-top: 64px; }
+            .navbar { min-height: 58px; }
+            .navbar-brand { font-size: 1.25rem; }
+            .nav-link { padding: 8px 12px !important; }
+            .base-content { padding: 24px; max-width: 96%; }
+            .navbar-description { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding-top: 56px; }
+            .navbar { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+            .navbar-brand { font-size: 1.1rem; }
+            .brand-subtext { font-size: 0.7rem; }
+            .nav-link { padding: 8px 10px !important; margin: 0 2px; }
+            .base-content { padding: 20px; }
+            .navbar-description { padding: 10px 12px; line-height: 1.4; }
+            .table, table { font-size: 0.95rem; }
+            .table-responsive-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        }
+
+        @media (max-width: 576px) {
+            .navbar { min-height: 52px; }
+            .navbar-brand { font-size: 1rem; }
+            .nav-link { padding: 6px 8px !important; }
+            .base-content { margin: 16px auto; padding: 16px; }
+            .navbar.navbar-expanded { min-height: 160px; }
+            .navbar.navbar-expanded .navbar-description { max-height: 280px; }
+        }
+
         img, video, canvas { max-width: 100%; height: auto; }
         .table-responsive-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .base-content { width: 100%; box-sizing: border-box; }
@@ -104,7 +233,25 @@
         .image { height: clamp(240px, 40vh, 500px); }
         .imageFont { font-size: clamp(32px, 10vw, 100px); text-align: center; }
 
-       
+        @media (max-width: 768px) {
+            .jumbotron { padding: 24px; border-radius: 12px; }
+            .jumbotron h1 { font-size: 1.75rem; }
+            .jumbotron p { font-size: 1rem; }
+        }
+
+        @media (max-width: 420px) {
+            body { padding-top: 52px; }
+            .navbar { min-height: 48px; }
+            .navbar-brand { font-size: 0.95rem; }
+            .navbar-brand .brand-subtext { display: none; }
+            .nav-link { padding: 6px 6px !important; font-size: 0.85rem; }
+            .base-content { padding: 12px; margin: 12px auto; }
+            .image { height: 200px; }
+            .imageFont { font-size: 1.5rem; }
+            table, .table { font-size: 0.85rem; }
+            .table thead th, .table tbody td { padding: 10px; }
+            .navbar-description { font-size: 0.85rem; padding: 8px 10px; }
+        }
     </style>
 </head>
 
@@ -114,12 +261,12 @@
         {% if user.is_authenticated %}
         <a class="navbar-brand" id="navbarBrand" href="{% url 'workshop_app:index' %}">
             FOSSEE Workshops
-            
+            <span class="brand-subtext">hover to see info</span>
         </a>
         {% else %}
         <a class="navbar-brand" id="navbarBrand" href="{{request.scheme}}://{{request.get_host}}">
             FOSSEE Workshops
-            
+            <span class="brand-subtext">hover to see info</span>
         </a>
         {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -170,7 +317,10 @@
             </div>
             {% endif %}
         </div>
-        
+        <!-- Expanding description area (hidden by default) -->
+        <div class="navbar-description" id="navbarDescription">
+            FOSSEE (Free/Libre and Open Source Software for Education) project promotes the use of FLOSS tools to improve the quality of education in our country. We aim to reduce dependency on proprietary software in educational institutions. We encourage the use of FLOSS tools through various activities to ensure commercial software is replaced by equivalent FLOSS tools. We also develop new FLOSS tools and upgrade existing tools to meet requirements in academia and research. The FOSSEE project is part of the National Mission on Education through Information and Communication Technology (ICT), Ministry of Education (MoE), Government of India.
+        </div>
     </nav>
 {% endblock %}
 
@@ -181,7 +331,20 @@
     {% endblock %}
 </div>
 
-
+<script>
+    // Expand/collapse navbar on brand hover
+    (function() {
+        var brand = document.getElementById('navbarBrand');
+        var navbar = document.querySelector('.navbar');
+        if (brand && navbar) {
+            var addExpanded = function() { navbar.classList.add('navbar-expanded'); };
+            var removeExpanded = function() { navbar.classList.remove('navbar-expanded'); };
+            brand.addEventListener('mouseenter', addExpanded);
+            brand.addEventListener('focus', addExpanded);
+            navbar.addEventListener('mouseleave', removeExpanded);
+        }
+    })();
+</script>
 {% if messages %}
 <script>
     {% for message in messages %}
