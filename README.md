@@ -5,18 +5,21 @@
 ***
 
 ### Features
+
 * Statistics
-    1. Instructors Only
-        * Monthly Workshop Count
-        * Instructor/Coordinator Profile stats
-        * Upcoming Workshops
-        * View/Post comments on Coordinator's Profile
-    2. Open to All
-        * Workshops taken over Map of India
-        * Pie chart based on Total Workshops taken to Type of Workshops.
+  1. Instructors Only
+     * Monthly Workshop Count
+     * Instructor/Coordinator Profile stats
+     * Upcoming Workshops
+     * View/Post comments on Coordinator's Profile
+  2. Open to All
+     * Workshops taken over Map of India
+     * Pie chart based on Total Workshops taken to Type of Workshops.
 
 * Workshop Related Features
-    > Instructors can Accept, Reject or Delete workshops based on their preference, also they can postpone a workshop based on coordinators request.
+  > Instructors can Accept, Reject or Delete workshops based on their preference, also they can postpone a workshop based on coordinators request.
+
+NOTE: Check docs/Getting_Started.md for more info.
 
 __NOTE__: Check docs/Getting_Started.md for more info.
 
