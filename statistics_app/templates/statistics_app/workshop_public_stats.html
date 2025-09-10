@@ -448,9 +448,12 @@
             // Configuration options go here
             options: {}
         });
-        $("#dialog").dialog({
-            width: 900,
-            height: 500
+       $("#dialog").dialog({
+        width: Math.min($(window).width() * 0.9, 900),
+        height: 'auto',
+       resizable: false,
+       modal: true,
+       position: { my: "center", at: "center", of: window }
         });
     }
 </script>

@@ -44,6 +44,16 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
     z-index: 2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+  .modern-table-container {
+    background: #674ec0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
   .head {
     text-align: center;
     font-size: 40px;
@@ -341,7 +351,7 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
 
   <div id="accepted-section" class="section-hidden">
     <h3 class="table-heading"><strong>Workshops Accepted</strong></h3>
-    <div class="modern-table-container">
+    <div class="modern-table-container table-responsive">
       <table class="modern-table">
         <thead>
           <tr>
@@ -413,7 +423,7 @@ Workshop Status {% endblock %} {% block extra-dependencies %}
     <h3 class="table-heading">
       <strong>Workshops Proposed By Coordinators</strong>
     </h3>
-    <div class="modern-table-container proposed-table-container">
+    <div class="modern-table-container proposed-table-container table-responsive">
       <table class="modern-table">
         <thead>
           <tr>
