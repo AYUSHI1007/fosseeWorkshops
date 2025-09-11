@@ -87,7 +87,7 @@ The key learning was the importance of balancing visual impact with usability. I
 ### Before
 ![Image Description](/workshop_app/static/workshop_app/img/oldSignInpage.png)
 ### After
-![Image Description](/workshop_app/static/workshop_app/imG/newSignInPage.png)
+![Image Description](/workshop_app/static/workshop_app/img/newSignInPage.png)
 
 `PROPOSE WORKSHOP`
 ### Before
@@ -124,3 +124,11 @@ The key learning was the importance of balancing visual impact with usability. I
 ![Image Description](/workshop_app/static/workshop_app/img/oldWorkshopStatistics.png)
 ### After 
 ![Image Description](/workshop_app/static/workshop_app/img/newWorkshopStatisticsPage.png)
+
+`RESPONSIVENESS FOR ALL DEVICES`
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20200911.png)
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20200923.png)
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20200934.png)
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20200952.png)
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20201042.png)
+![Image Description](/workshop_app/static/workshop_app/img/responsivenessInallDevices/Screenshot%202025-09-11%20201103.png)
