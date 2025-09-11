@@ -70,3 +70,8 @@ The problem was to create a smooth and accessible hover interaction that:
 My solution involved a hybrid approach using both CSS and JavaScript. I used a **CSS-only expansion** with `max-height` and `opacity` transitions for the animation itself, which provides better performance. A **Flexbox layout** ensured proper stacking and alignment of the navbar items and the new description panel. I used **JavaScript event handling** to manage the hover and focus states, ensuring the feature is accessible to keyboard users and touch devices.
 
 The key learning was the importance of balancing visual impact with usability. I had to carefully consider the timing and spacing of the animations, and create fallback states for users who cannot hover (e.g., on touch devices). The result is a polished, responsive interface that works flawlessly across all device types while staying true to the original design intent.
+
+### Before
+(oldProposeWorkshop.png)
+### After
+(newProposeWorkshop.png)
