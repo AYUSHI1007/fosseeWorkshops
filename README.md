@@ -71,7 +71,56 @@ My solution involved a hybrid approach using both CSS and JavaScript. I used a *
 
 The key learning was the importance of balancing visual impact with usability. I had to carefully consider the timing and spacing of the animations, and create fallback states for users who cannot hover (e.g., on touch devices). The result is a polished, responsive interface that works flawlessly across all device types while staying true to the original design intent.
 
+`LOGIN PAGE`
 ### Before
-(![Image Description](/workshop_app/static/workshop_app/img/oldProposeWorkshop.png))
+![Image Description](/workshop_app/static/workshop_app/img/oldLoginPage.png)
 ### After
-(![Image Description](/workshop_app/static/workshop_app/img/newProposeWorkshop.png))
+![Image Description](/workshop_app/static/workshop_app/img/newLoginPage.png)
+
+`LOGOUT PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldLogoutPage.png)
+### After
+![Image Description](/workshop_app/static/workshop_app/img/newLogoutPage.png)
+
+`SIGN IN PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldSignInpage.png)
+### After
+![Image Description](/workshop_app/static/workshop_app/imG/newSignInPage.png)
+
+`PROPOSE WORKSHOP`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldProposeWorkshop.png)
+### After
+![Image Description](/workshop_app/static/workshop_app/img/newProposeWorkshop.png)
+
+`WORKSHOP TYPES`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldWorkshopTypesPage.png)
+### After
+![Image Description](/workshop_app/static/workshop_app/img/newWokshopTypesPage.png)
+
+`ADD NEW WORKSHOP PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldEditWorkshopPage.png)
+### After (added back to workshop types tab button also)
+![Image Description](/workshop_app/static/workshop_app/img/newAddWorkshopPage.png)
+
+`PROFILE VIEW PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldProfileView.png)
+### After 
+![Image Description](/workshop_app/static/workshop_app/img/newProfileviewPAge.png)
+
+`STATUS AND HOME PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldHomeAndStatusPAgeInstructor.png)
+### After 
+![Image Description](/workshop_app/static/workshop_app/img/newStatusAndHomePAge.png)
+
+`WORKSHOP STATISTICS PAGE`
+### Before
+![Image Description](/workshop_app/static/workshop_app/img/oldWorkshopStatistics.png)
+### After 
+![Image Description](/workshop_app/static/workshop_app/img/newWorkshopStatisticsPage.png)
