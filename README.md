@@ -72,6 +72,6 @@ My solution involved a hybrid approach using both CSS and JavaScript. I used a *
 The key learning was the importance of balancing visual impact with usability. I had to carefully consider the timing and spacing of the animations, and create fallback states for users who cannot hover (e.g., on touch devices). The result is a polished, responsive interface that works flawlessly across all device types while staying true to the original design intent.
 
 ### Before
-(![Image Description](/oldProposeWorkshop.png))
+(![Image Description](/workshop_app/static/workshop_app/img/oldProposeWorkshop.png))
 ### After
-(![Image Description](/newProposeWorkshop.png))
+(![Image Description](/workshop_app/static/workshop_app/img/newProposeWorkshop.png))
