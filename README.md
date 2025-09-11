@@ -89,6 +89,14 @@ The key learning was the importance of balancing visual impact with usability. I
 ### After
 ![Image Description](/workshop_app/static/workshop_app/img/newSignInPage.png)
 
+`ADVANCED NAVBAR`
+### AFTER (HOVER ON FOSSEE WORKSHOP AND YOU WILL SEE A DESCRIPTION ON FOSSEE)
+![Image Description](/workshop_app/static/workshop_app/img/advancedNavbarWithHover.png)
+
+`NAVBAR COMPONENTS`
+### AFTER (BUTTONS ON HOVER CHNGES COLOUR TO BACKGROUND COLOUR PURPLE WITH BLUE UNDERLINE)
+![Image Description](/workshop_app/static/workshop_app/img/newTeamStatistics.png)
+
 `PROPOSE WORKSHOP`
 ### Before
 ![Image Description](/workshop_app/static/workshop_app/img/oldProposeWorkshop.png)
